@@ -23,26 +23,26 @@ namespace ProgressBar
 			ProgBarType1(StepsType1);
 			Console.WriteLine("\n");
 			
-			ProgBarType2(StepsType2);
+			ProgBarType2(StepsType2); 
 			Console.WriteLine("\n");
-
+			
 			RandBarType1();
+			Console.WriteLine("\n");
 		}
+		#region Printing
 
-		#region ProgressBarType1
-
-		private static void ProgBarType1(int steps)
+		private static void PrintSteps(int steps, int i)
 		{
-			for (int i = 1; i <= steps; i++)
-			{
-				PrintCharacters(i, Division3);
-				Console.Write($" {i}/{steps}");
-				Console.CursorLeft = 0;
-				Thread.Sleep(DelayType1);
-			}
+			Console.Write($" {i + 1}/{steps}");
 		}
 
-		private static void PrintCharacters(int amount, string character)
+		private static void PrintCharacterAtPos(int curspos, string character)
+		{
+			Console.CursorLeft = curspos;
+			Console.Write(character);
+		}
+
+		private static void PrintXCharacters(int amount, string character)
 		{
 			for (int j = 0; j < amount; j++)
 			{
@@ -52,13 +52,29 @@ namespace ProgressBar
 
 		#endregion
 
+		#region ProgressBarType1
+
+		private static void ProgBarType1(int steps)
+		{
+			for (int i = 0; i < steps; i++)
+			{
+				PrintCharacterAtPos(i, Division3);
+				PrintSteps(steps, i);
+				Thread.Sleep(DelayType1);
+			}
+		}
+
+		#endregion
+
 		#region ProgressBarType2
 
 		private static void ProgBarType2(int steps)
 		{
-			PrintCharacters(steps, Division1);
+			PrintXCharacters(steps, Division1);
 			for (int i = 0; i < steps; i++)
 			{
+				Console.CursorLeft = steps + 1;
+				PrintSteps(steps, i);
 				Console.CursorLeft = i;
 				for (int j = 0; j < 2; j++)
 				{
@@ -68,8 +84,6 @@ namespace ProgressBar
 						Console.Write(Division2);
 					Thread.Sleep(DelayType2);
 				}
-				Console.CursorLeft = steps + 1;
-				Console.Write($"{i+1}/{steps}");
 			}
 		}
 
@@ -80,11 +94,11 @@ namespace ProgressBar
 		private static void RandBarType1()
 		{
 			var steps = RandomizeSteps();
-			for (int i = 1; i <= steps; i++)
+			for (int i = 0; i < steps; i++)
 			{
 				var delay = RandomizeDelay();
-				PrintCharacters(i,Division3);
-				Console.Write($" {i}/{steps}");
+				PrintCharacterAtPos(i,Division3);
+				Console.Write($" {i+1}/{steps}");
 				Console.CursorLeft = 0;
 				Thread.Sleep(delay);
 			}
