@@ -20,7 +20,7 @@ namespace ProgressBar
 			
 			ProgBarType1(StepsType1);
 			Console.WriteLine("\n");
-
+			
 			ProgBarType2(StepsType2);
 			Console.WriteLine("\n");
 
@@ -76,10 +76,9 @@ namespace ProgressBar
 		private static void RandBarType1()
 		{
 			var steps = RandomizeSteps();
-			var delay = RandomizeDelay();
-			PrintStats(steps, delay);
 			for (int i = 1; i <= steps; i++)
 			{
+				var delay = RandomizeDelay();
 				for (int j = 0; j < i; j++)
 				{
 					Console.Write(Division3);
@@ -88,11 +87,6 @@ namespace ProgressBar
 				Console.CursorLeft = 0;
 				Thread.Sleep(delay);
 			}
-		}
-
-		private static void PrintStats(int steps, int delay)
-		{
-			Console.WriteLine($"Steps:{steps}\tDelay:{delay}");
 		}
 
 		private static int RandomizeDelay()
