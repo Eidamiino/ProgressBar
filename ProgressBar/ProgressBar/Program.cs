@@ -10,6 +10,8 @@ namespace ProgressBar
 		public const int StepsType2 = 50;
 		public const int DelayType1 = 200;
 		public const int DelayType2 = 100;
+		public const int MaxDelay = 500;
+		public const int MaxSteps = 25;
 		public const string Division1 = "\u2591";
 		public const string Division2 = "\u2592";
 		public const string Division3 = "\u2593";
@@ -91,14 +93,14 @@ namespace ProgressBar
 		private static int RandomizeDelay()
 		{
 			Random rnd = new Random();
-			var delay = rnd.Next(500);
+			var delay = rnd.Next(MaxDelay);
 			return delay;
 		}
 
 		private static int RandomizeSteps()
 		{
 			Random rnd = new Random();
-			var steps = rnd.Next(25);
+			var steps = rnd.Next(MaxSteps);
 			return steps;
 		}
 
