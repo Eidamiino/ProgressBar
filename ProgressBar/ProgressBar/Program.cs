@@ -93,10 +93,10 @@ namespace ProgressBar
 
 		private static void RandBarType1()
 		{
-			var steps = RandomizeSteps();
+			var steps = RandomizeSteps(MaxSteps);
 			for (int i = 0; i < steps; i++)
 			{
-				var delay = RandomizeDelay();
+				var delay = RandomizeDelay(MaxDelay);
 				PrintCharacterAtPos(i,Division3);
 				Console.Write($" {i+1}/{steps}");
 				Console.CursorLeft = 0;
@@ -104,17 +104,17 @@ namespace ProgressBar
 			}
 		}
 
-		private static int RandomizeDelay()
+		private static int RandomizeDelay(int max)
 		{
 			Random rnd = new Random();
-			var delay = rnd.Next(MaxDelay);
+			var delay = rnd.Next(max);
 			return delay;
 		}
 
-		private static int RandomizeSteps()
+		private static int RandomizeSteps(int max)
 		{
 			Random rnd = new Random();
-			var steps = rnd.Next(MaxSteps);
+			var steps = rnd.Next(max);
 			return steps;
 		}
 
