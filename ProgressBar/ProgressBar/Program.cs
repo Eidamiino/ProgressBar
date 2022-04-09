@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Text;
 using System.Threading;
 
@@ -41,12 +42,51 @@ namespace ProgressBar
 			Console.CursorLeft = curspos;
 			Console.Write(character);
 		}
+		#endregion
 
-		private static void PrintXCharacters(int amount, string character)
+		#region Calculations
+
+		private static int MaybeNextThird(int x, int total)
 		{
-			for (int j = 0; j < amount; j++)
+			if (x+1 > Math.Round(total *(double)2/3))
 			{
-				Console.Write(character);
+				return 3;
+			}
+			if (x+1> Math.Round((double)total/3))
+			{
+				return 2;
+			}
+			return 1;
+		}
+
+		#endregion
+
+		#region ForegroundColor
+
+		private static void ColorSwitcher(int fraction)
+		{
+			switch (fraction)
+			{
+				case 1:
+				{
+					Console.ForegroundColor = ConsoleColor.Red;
+					break;
+				}
+				case 2:
+				{
+					Console.ForegroundColor = ConsoleColor.DarkYellow;
+					break;
+				}
+				case 3:
+				{
+					Console.ForegroundColor = ConsoleColor.Green;
+					break;
+				}
+				default:
+				{
+					Console.ForegroundColor = ConsoleColor.Gray;
+					break;
+				}
 			}
 		}
 
@@ -58,7 +98,9 @@ namespace ProgressBar
 		{
 			for (int i = 0; i < steps; i++)
 			{
+				ColorSwitcher(MaybeNextThird(i, steps));
 				PrintCharacterAtPos(i, Division3);
+				Console.ForegroundColor = ConsoleColor.Gray;
 				PrintSteps(steps, i);
 				Thread.Sleep(DelayType1);
 			}
@@ -70,15 +112,21 @@ namespace ProgressBar
 
 		private static void ProgBarType2(int steps)
 		{
-			PrintXCharacters(steps, Division1);
+			for (int i = 0; i < steps; i++)
+			{
+				ColorSwitcher(MaybeNextThird(i, steps));
+				PrintCharacterAtPos(i, Division1);
+			}
 			for (int i = 0; i < steps; i++)
 			{
 				Console.CursorLeft = steps + 1;
+				Console.ForegroundColor= ConsoleColor.Gray;
 				PrintSteps(steps, i);
 				Console.CursorLeft = i;
 				for (int j = 0; j < 2; j++)
 				{
-					if(j==0)
+					ColorSwitcher(MaybeNextThird(i, steps));
+					if (j==0)
 						Console.Write(Division3);
 					if(j==1&&i!=steps-1)
 						Console.Write(Division2);
@@ -97,8 +145,10 @@ namespace ProgressBar
 			for (int i = 0; i < steps; i++)
 			{
 				var delay = RandomizeValue(MaxDelay);
+				ColorSwitcher(MaybeNextThird(i, steps));
 				PrintCharacterAtPos(i,Division3);
-				Console.Write($" {i+1}/{steps}");
+				Console.ForegroundColor = ConsoleColor.Gray;
+				PrintSteps(steps, i);
 				Console.CursorLeft = 0;
 				Thread.Sleep(delay);
 			}
