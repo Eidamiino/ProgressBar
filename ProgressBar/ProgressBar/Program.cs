@@ -33,13 +33,18 @@ namespace ProgressBar
 		{
 			for (int i = 1; i <= steps; i++)
 			{
-				for (int j = 0; j < i; j++)
-				{
-					Console.Write(Division3);
-				}
+				PrintCharacters(i, Division3);
 				Console.Write($" {i}/{steps}");
 				Console.CursorLeft = 0;
 				Thread.Sleep(DelayType1);
+			}
+		}
+
+		private static void PrintCharacters(int amount, string character)
+		{
+			for (int j = 0; j < amount; j++)
+			{
+				Console.Write(character);
 			}
 		}
 
@@ -49,10 +54,7 @@ namespace ProgressBar
 
 		private static void ProgBarType2(int steps)
 		{
-			for (int i = 0; i < steps; i++)
-			{
-				Console.Write(Division1);
-			}
+			PrintCharacters(steps, Division1);
 			for (int i = 0; i < steps; i++)
 			{
 				Console.CursorLeft = i;
@@ -79,10 +81,7 @@ namespace ProgressBar
 			for (int i = 1; i <= steps; i++)
 			{
 				var delay = RandomizeDelay();
-				for (int j = 0; j < i; j++)
-				{
-					Console.Write(Division3);
-				}
+				PrintCharacters(i,Division3);
 				Console.Write($" {i}/{steps}");
 				Console.CursorLeft = 0;
 				Thread.Sleep(delay);
