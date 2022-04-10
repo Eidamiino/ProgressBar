@@ -123,14 +123,15 @@ namespace ProgressBar
 				Console.ForegroundColor= ConsoleColor.Gray;
 				PrintSteps(steps, i);
 				Console.CursorLeft = i;
+				ColorSwitcher(MaybeNextThird(i, steps));
 				for (int j = 0; j < 2; j++)
 				{
-					ColorSwitcher(MaybeNextThird(i, steps));
 					if (j==0)
-						Console.Write(Division3);
-					if(j==1&&i!=steps-1)
 						Console.Write(Division2);
+					if (j == 1)
+						Console.Write(Division3);
 					Thread.Sleep(DelayType2);
+					Console.CursorLeft=i;
 				}
 			}
 		}
